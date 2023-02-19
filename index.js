@@ -21,7 +21,7 @@ app.use(cors());
 app.use(morgan("combined"));
 
 app.get("/", async (req, res) => {
-  res.send("MKX API");
+  res.send("MKX POS API");
 });
 
 // defining an endpoint to return all ads
@@ -48,7 +48,7 @@ app.post("/signup", async (req, res) => {
       profile_url,
     } = req.body;
     if (Object.keys(req.body).length === 0) {
-      res.status(400).send("Chala ja beep");
+      res.status(400).send("Req body empty");
     }
     if (!(email && email.toLowerCase() && password && name)) {
       res.status(400).send("All input are required..!");
