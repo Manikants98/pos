@@ -24,6 +24,30 @@ app.get("/", async (req, res) => {
   res.send("MKX POS API");
 });
 
+app.post("/test", async (req, res) => {
+  // res.send("MKX POS API");
+  const keys = [];
+  const values = [];
+
+  for (var i = 0; i < Object.keys(req.body).length; i++) {
+    keys.push(Object.keys(req.body)[i].replace(/"/g, "'"));
+  }
+
+  for (var i = 0; i < Object.values(req.body).length; i++) {
+    values.push(Object.values(req.body)[i].replace(/"/g, "'"));
+  }
+
+  await client.query(
+    `INSERT INTO test (${keys[0]}, ${keys[1]}) VALUES(${values[0]}, ${values[1]})`
+  );
+});
+
+app.post("/create-table", async (req, res) => {
+  await client.query(
+    `CREATE TABLE ${req.body.table}(id varchar(255),title varchar(255), PRIMARY KEY( id ))`
+  );
+});
+
 // defining an endpoint to return all ads
 app.get("/users", async (req, res) => {
   try {
